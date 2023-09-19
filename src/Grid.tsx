@@ -1,12 +1,11 @@
 import { AgGridReact } from "ag-grid-react";
-import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useEffect, useMemo, useRef } from "react";
 import columnDefs from "./helpers/columnDef";
 import { PAGE_TITLE } from "./helpers/constants";
-import { discoveryDateFormat } from "./helpers/dateFormat";
 import { I_GridTableRef } from "./global";
+import formattedData from "./helpers/formattedData";
 
 const NeoGrid = (): JSX.Element => {
   const gridRef = useRef<I_GridTableRef | null>(null);
@@ -18,13 +17,6 @@ const NeoGrid = (): JSX.Element => {
   useEffect(() => {
     document.title = PAGE_TITLE
   }, []);
-  const formattedData = data.map((row) => {
-    return {
-      ...row,
-      discovery_date: discoveryDateFormat.format(new Date(row.discovery_date)),
-      pha: row.pha === "Y" ? "Yes" : row.pha === "N" ? "No" : "",
-    };
-  });
   const resetFiltersSorters = () => {
     gridRef.current?.api?.setFilterModel(null);
     gridRef.current?.columnApi?.resetColumnState();
