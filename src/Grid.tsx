@@ -20,15 +20,25 @@ const columnDefs: ColDef[] = [
 
 const TITLE = "Near-Earth Object Overview";
 
+const dateFormat = new Intl.DateTimeFormat('en-US', { 
+  dateStyle: 'long'
+});
+
 const NeoGrid = (): JSX.Element => {
   useEffect(() => {
     document.title = TITLE
   }, []);
+  const updatedData = data.map((row) => {
+    return {
+      ...row,
+      discovery_date: dateFormat.format(new Date(row.discovery_date)),
+    };
+  });
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
       <h2>{TITLE}</h2>
       <AgGridReact
-        rowData={data}
+        rowData={updatedData}
         columnDefs={columnDefs}
         rowGroupPanelShow={'always'}
       />
