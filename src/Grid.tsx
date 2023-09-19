@@ -3,6 +3,7 @@ import { ColDef } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { useEffect } from "react";
 
 const columnDefs: ColDef[] = [
   { field: "designation", headerName: "Designation" },
@@ -17,9 +18,15 @@ const columnDefs: ColDef[] = [
   { field: "orbit_class", headerName: "Orbit Class", enableRowGroup: true, },
 ];
 
+const TITLE = "Near-Earth Object Overview";
+
 const NeoGrid = (): JSX.Element => {
+  useEffect(() => {
+    document.title = TITLE
+  }, []);
   return (
     <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+      <h2>{TITLE}</h2>
       <AgGridReact
         rowData={data}
         columnDefs={columnDefs}
