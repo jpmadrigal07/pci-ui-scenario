@@ -32,6 +32,7 @@ const NeoGrid = (): JSX.Element => {
     return {
       ...row,
       discovery_date: dateFormat.format(new Date(row.discovery_date)),
+      pha: row.pha === "Y" ? "Yes" : row.pha === "N" ? "No" : "",
     };
   });
   return (
